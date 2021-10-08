@@ -9,21 +9,51 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    var emoji: Emoji?
+    init?(coder: NSCoder, emoji: Emoji?) {
+        self.emoji = emoji
+        super.init(coder: coder)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    */
+    
+    @IBOutlet var symbolTextField: UITextField!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var descriptionTextField: UITextField!
+    @IBOutlet var usageTextField: UITextField!
+    
+    
+    
+//_________________________________________________________________________________________
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateView()
+        // Do any additional setup after loading the view.
+    }
+//_________________________________________________________________________________________
+
+    func updateView() {
+        if let emoji = emoji {
+            symbolTextField.text = emoji.symbol
+            nameTextField.text = emoji.name
+            descriptionTextField.text = emoji.description
+            usageTextField.text = emoji.usage
+        }
+    }
+    
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        guard let symbol = symbolTextField.text,
+        let name = nameTextField.text,
+        let description = descriptionTextField.text,
+        let usage = usageTextField.text else {return}
+        emoji = Emoji(symbol: symbol, name: name, description: description, usage: usage)
+        
+        performSegue(withIdentifier: "recive", sender: self)
+    }
+    
 
 }

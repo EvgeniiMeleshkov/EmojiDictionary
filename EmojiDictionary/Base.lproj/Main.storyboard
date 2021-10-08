@@ -43,6 +43,9 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.27450981740000002" green="0.26666668059999998" blue="0.28627452250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="1" green="0.93854918799999998" blue="0.74799048420000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <segue destination="IRA-XH-t4D" kind="show" identifier="EditEmoji" destinationCreationSelector="editEmoji:sender:" id="zF0-Pw-S29"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -54,7 +57,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Add" image="plus" catalog="system" id="qGc-Un-CpJ">
                             <color key="tintColor" red="1" green="0.93854918799999998" blue="0.74799048420000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
-                                <segue destination="IRA-XH-t4D" kind="show" id="1jD-2N-YfY"/>
+                                <segue destination="IRA-XH-t4D" kind="show" identifier="AddEmoji" destinationCreationSelector="addEmoji:" id="1jD-2N-YfY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -72,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="wU2-er-MgK">
-                                <rect key="frame" x="34" y="165.33333333333337" width="360" height="230"/>
+                                <rect key="frame" x="34" y="134.33333333333334" width="360" height="230.00000000000003"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="wWv-0t-aKw">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="230"/>
@@ -179,26 +182,39 @@
                                 <color key="textColor" red="1" green="0.93854918799999998" blue="0.74799048420000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfc-fJ-fqT">
-                                <rect key="frame" x="177" y="425" width="75" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfc-fJ-fqT">
+                                <rect key="frame" x="186.33333333333334" y="372.33333333333331" width="55.333333333333343" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="IRA-XH-t4D" eventType="touchUpInside" id="U48-VT-dfI"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="E4d-Qq-TH5"/>
                         <color key="backgroundColor" red="0.27450981740000002" green="0.26666668059999998" blue="0.28627452250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" red="1" green="0.93854918799999998" blue="0.74799048420000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="Gfc-fJ-fqT" firstAttribute="centerX" secondItem="Ggr-Kr-n0d" secondAttribute="centerX" id="0Mj-OA-HA1"/>
                             <constraint firstItem="8yQ-WQ-6lI" firstAttribute="centerX" secondItem="wU2-er-MgK" secondAttribute="centerX" id="6j2-p7-VnX"/>
                             <constraint firstItem="8yQ-WQ-6lI" firstAttribute="top" secondItem="E4d-Qq-TH5" secondAttribute="top" constant="18" id="A0Z-vS-hw8"/>
-                            <constraint firstItem="wU2-er-MgK" firstAttribute="top" secondItem="8yQ-WQ-6lI" secondAttribute="bottom" constant="39" id="HZm-Y9-mR6"/>
+                            <constraint firstItem="wU2-er-MgK" firstAttribute="top" secondItem="8yQ-WQ-6lI" secondAttribute="bottom" constant="8" id="HZm-Y9-mR6"/>
+                            <constraint firstItem="Gfc-fJ-fqT" firstAttribute="top" secondItem="wU2-er-MgK" secondAttribute="bottom" constant="8" id="bCC-Nt-8qb"/>
+                            <constraint firstItem="E4d-Qq-TH5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Gfc-fJ-fqT" secondAttribute="bottom" constant="10" id="tjP-Rc-AEd"/>
                             <constraint firstItem="8yQ-WQ-6lI" firstAttribute="centerX" secondItem="Ggr-Kr-n0d" secondAttribute="centerX" id="v4m-en-uuS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fcw-tP-wqR"/>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="BSK-Ef-tk7" id="6Lm-ex-h4J"/>
+                        <outlet property="nameTextField" destination="Hoe-1E-2rt" id="s0t-c1-aTC"/>
+                        <outlet property="symbolTextField" destination="9qA-TK-3Qd" id="NDp-UE-Ni5"/>
+                        <outlet property="usageTextField" destination="G2f-wG-pVX" id="rMf-0x-sQG"/>
+                        <segue destination="tc4-xz-T5g" kind="unwind" identifier="recive" unwindAction="reciveTheEmojiObjectWithSegue:" id="0Eh-CU-H3M"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cwi-Cl-xet" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="tc4-xz-T5g" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1157.9439252336449" y="20.734341252699785"/>
         </scene>
@@ -219,6 +235,9 @@
             <point key="canvasLocation" x="-450" y="22"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zF0-Pw-S29"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">

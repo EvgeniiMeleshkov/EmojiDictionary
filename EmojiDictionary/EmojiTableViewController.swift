@@ -105,7 +105,7 @@ class EmojiTableViewController: UITableViewController {
     ]
     
     
-    
+//_____________________________________________________________________________________________
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.cellLayoutMarginsFollowReadableWidth = true
@@ -178,6 +178,35 @@ class EmojiTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
+    
+    @IBSegueAction func addEmoji(_ coder: NSCoder) -> InfoViewController? {
+        return InfoViewController(coder: coder, emoji: nil)
+    }
+    
+    @IBSegueAction func editEmoji(_ coder: NSCoder, sender: Any?) -> InfoViewController? {
+        let emojiToEdit: Emoji?
+        if let cell = sender as? UITableViewCell,
+           let indexPath = tableView.indexPath(for: cell) {
+            emojiToEdit = emojis[indexPath.row]
+        } else {
+            emojiToEdit = nil
+        }
+        return InfoViewController(coder: coder, emoji: emojiToEdit)
+    }
+    
+    
+    @IBAction func reciveTheEmojiObject (segue: UIStoryboardSegue) {
+        guard let infoViewController = segue.source as? InfoViewController,
+              let emoji = infoViewController.emoji
+        else {return}
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            emojis[selectedIndexPath.row] = emoji
+        } else {
+            emojis.append(emoji)
+        }
+    
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
